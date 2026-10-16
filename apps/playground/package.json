@@ -1,0 +1,28 @@
+{
+  "name": "playground",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --max-warnings 0",
+    "check-types": "vue-tsc -b"
+  },
+  "dependencies": {
+    "miniml-ui": "workspace:*",
+    "vue": "^3.5.44"
+  },
+  "devDependencies": {
+    "@miniml/eslint-config": "workspace:*",
+    "@miniml/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^9.39.1",
+    "typescript": "5.9.2",
+    "vite": "^8.3.4",
+    "vue-tsc": "^3.3.13"
+  }
+}

@@ -1,8 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["src"],
+  "extends": "@miniml/typescript-config/vue-library.json",
+  "include": ["src/**/*.ts", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

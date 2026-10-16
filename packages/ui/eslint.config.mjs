@@ -1,4 +1,4 @@
-import { config } from "@repo/eslint-config/react-internal";
+import { config } from "@miniml/eslint-config/vue";
 
-/** @type {import("eslint").Linter.Config} */
+/** @type {import("eslint").Linter.Config[]} */
 export default config;
