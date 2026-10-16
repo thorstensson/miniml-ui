@@ -1,134 +1,80 @@
-# Turborepo starter
+# miniml-ui
 
-This Turborepo starter is maintained by the Turborepo core team.
+A minimal, zero-dependency Vue 3 component library built on the [Nord](https://www.nordtheme.com/) palette.
 
-## Using this example
+> **Status:** major version zero (0.y.z). The API can change at any time. `Button` is shipped; more components will follow.
 
-Run the following command:
+## Philosophy
+
+- **Tokens first.** Components derive their styles from a small set of foundational Nord tokens rather than dozens of independent variables per component.
+- **Composition.** Accessible, unstyled primitives sit alongside polished default components, so you get ready-made UI and the freedom to build your own.
+- **Shared motion.** Every component uses the same timing and easing: short, subtle opacity and transform transitions, with reduced-motion support built in.
+- **Progressive complexity.** A simple API for simple cases; more control only when you need it.
+- **The 100% Details Rule.** Every component ships with keyboard interaction, focus-visible states, screen-reader labels, relevant states (loading, disabled, error…), narrow-width behavior and reduced-motion support.
+- **Zero dependencies.** No component or motion libraries. Focus management and ARIA are owned by the library, and native platform features (`<dialog>`, CSS transitions, `@starting-style`) come first.
+
+The full palette, theme roles and requirements are in [DESIGN_GUIDE.md](./DESIGN_GUIDE.md).
+
+## Example
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { Button } from "miniml-ui";
+
+const saving = ref(false);
+</script>
+
+<template>
+  <!-- Basic usage -->
+  <Button>Save changes</Button>
+
+  <!-- More control -->
+  <Button variant="primary" :loading="saving" loading-label="Saving changes">
+    Save changes
+  </Button>
+</template>
+```
+
+`Button` supports the `primary`, `secondary`, `ghost` and `danger` variants, the `sm`, `md` and `lg` sizes, and an `as` prop to render another element or component (for example `a` or `RouterLink`). While loading, it keeps focus and blocks clicks.
+
+## Getting started
+
+Requires Node 18+ and pnpm.
 
 ```sh
-npx create-turbo@latest
+pnpm install
+pnpm dev
 ```
 
-## What's inside?
+The playground runs at [http://localhost:3000](http://localhost:3000).
 
-This Turborepo includes the following packages/apps:
+## Repo structure
 
-### Apps and Packages
+| Path                         | Package                     | Purpose                                      |
+| ---------------------------- | --------------------------- | -------------------------------------------- |
+| `packages/ui`                | `miniml-ui`                 | The component library: components and tokens |
+| `apps/playground`            | `playground`                | Vite + Vue app for trying components locally |
+| `packages/eslint-config`     | `@miniml/eslint-config`     | Shared ESLint config (Vue + Prettier)        |
+| `packages/typescript-config` | `@miniml/typescript-config` | Shared `tsconfig.json` bases                 |
 
-- `playground`: a barebones [Vite](https://vite.dev/) + [Vue](https://vuejs.org/) app to test the components locally
-- `miniml-ui`: the core Vue component library
-- `@miniml/eslint-config`: `eslint` configurations (includes `eslint-plugin-vue` and `eslint-config-prettier`)
-- `@miniml/typescript-config`: `tsconfig.json`s used throughout the monorepo
+The monorepo is managed with [Turborepo](https://turborepo.dev/) and pnpm workspaces.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Scripts
 
-### Utilities
+Run from the repo root:
 
-This Turborepo has some additional tools already setup for you:
+| Command            | What it does                                  |
+| ------------------ | --------------------------------------------- |
+| `pnpm dev`         | Starts the playground                         |
+| `pnpm lint`        | Lints all packages                            |
+| `pnpm check-types` | Type-checks all packages with `vue-tsc`       |
+| `pnpm format`      | Formats `.ts`, `.tsx`, `.vue` and `.md` files |
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+To run a task for one package, use a filter, for example `pnpm exec turbo dev --filter=playground`.
 
-### Build
+## Roadmap
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=miniml-ui
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=miniml-ui
-yarn exec turbo build --filter=miniml-ui
-pnpm exec turbo build --filter=miniml-ui
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=playground
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=playground
-yarn exec turbo dev --filter=playground
-pnpm exec turbo dev --filter=playground
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- More components, built to the same standard as `Button`
+- A shared, self-written roving-focus composable for menus and lists
+- [Floating UI](https://floating-ui.com/) for popup positioning in Select, Menu and Tooltip, the one planned dependency
